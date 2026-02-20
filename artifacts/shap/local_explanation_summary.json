@@ -1,0 +1,24 @@
+{
+  "instance_index": 2,
+  "predicted_label": 1,
+  "top_positive": {
+    "cumulative_cgpa": 0.10670076816095272,
+    "carryover_courses_count": 0.08512351377342056,
+    "failed_courses_prev_semester": 0.07940304510547101,
+    "continuous_assessment_avg": 0.023777792428693562,
+    "prev_semester_gpa": 0.020882647199644735,
+    "faculty_Engineering": 0.008960083354669319,
+    "utme_score": 0.006188387959058358,
+    "age": 0.005528105941970072
+  },
+  "top_negative": {
+    "institution_type_Private": -0.10612937284541736,
+    "state_of_origin_Nasarawa": -0.02738517865726337,
+    "department_Accounting": -0.023403249051723113,
+    "attendance_rate": -0.00724009812946636,
+    "socioeconomic_band_Middle": -0.003991600456951256,
+    "institution_type_Federal": -0.0036024965112562,
+    "department_Microbiology": -0.003371128483086046,
+    "faculty_Management Sciences": -0.0033258431373717205
+  }
+}

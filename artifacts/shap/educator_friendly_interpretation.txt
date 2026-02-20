@@ -1,0 +1,33 @@
+SHAP Explanation Summary (Educator-Facing Interpretation)
+
+1. Global feature importance (overall):
+- The global SHAP summary plot shows which variables most consistently influence predictions across the student population.
+- Features appearing at the top of the plot have the strongest overall association with the model’s risk estimates.
+- This should be interpreted as a descriptive model behaviour, not as proof of causal influence.
+
+2. Local explanation (single at-risk prediction):
+- An example student record (index 2) predicted as at-risk is explained using a SHAP waterfall plot.
+- The waterfall plot decomposes the prediction into contributions from each feature.
+- Positive contributions indicate factors that push the prediction toward ‘at risk’; negative contributions push it toward ‘not at risk’.
+
+Top factors increasing the at-risk prediction (examples):
+- cumulative_cgpa: +0.107
+- carryover_courses_count: +0.085
+- failed_courses_prev_semester: +0.079
+- continuous_assessment_avg: +0.024
+- prev_semester_gpa: +0.021
+
+Top factors reducing the at-risk prediction (examples):
+- institution_type_Private: -0.106
+- state_of_origin_Nasarawa: -0.027
+- department_Accounting: -0.023
+- attendance_rate: -0.007
+- socioeconomic_band_Middle: -0.004
+
+Practical interpretation for non-technical educators:
+- The explanation highlights which measurable indicators (academic history and engagement proxies) are most aligned with increased predicted risk.
+- These indicators can support targeted academic advising (e.g., monitoring students with low prior performance and low engagement).
+- The output is intended for decision support and should be used alongside professional judgment and institutional policies.
+
+Saved global plot: artifacts\shap\shap_global_summary.png
+Saved local plot: artifacts\shap\shap_local_waterfall_at_risk.png
