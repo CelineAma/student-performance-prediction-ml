@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Student Academic Performance Prediction</h1>
+            <p class="subtitle">Academic Risk Assessment System</p>
+        </header>
+
+        <!-- Login Section -->
+        <section id="loginSection" class="card">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div id="loginError" class="error-message"></div>
+            </form>
+        </section>
+
+        <!-- Prediction Form Section -->
+        <section id="predictionSection" class="card" style="display: none;">
+            <div class="section-header">
+                <h2>Student Information</h2>
+                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+            </div>
+            
+            <form id="predictionForm">
+                <!-- Academic Information -->
+                <fieldset class="fieldset">
+                    <legend>Academic Information</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="institution_type">Institution Type</label>
+                            <select id="institution_type" name="institution_type">
+                                <option value="">Select...</option>
+                                <option value="Federal">Federal</option>
+                                <option value="State">State</option>
+                                <option value="Private">Private</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="faculty">Faculty</label>
+                            <input type="text" id="faculty" name="faculty" placeholder="e.g., Engineering">
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <input type="text" id="department" name="department" placeholder="e.g., Computer Science">
+                        </div>
+                        <div class="form-group">
+                            <label for="level">Level</label>
+                            <select id="level" name="level">
+                                <option value="">Select...</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="300">300</option>
+                                <option value="400">400</option>
+                                <option value="500">500</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="entry_mode">Entry Mode</label>
+                            <select id="entry_mode" name="entry_mode">
+                                <option value="">Select...</option>
+                                <option value="UTME">UTME</option>
+                                <option value="DirectEntry">Direct Entry</option>
+                                <option value="Transfer">Transfer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="entry_qualification">Entry Qualification</label>
+                            <select id="entry_qualification" name="entry_qualification">
+                                <option value="">Select...</option>
+                                <option value="SSCE">SSCE</option>
+                                <option value="ND">ND</option>
+                                <option value="HND">HND</option>
+                                <option value="Alevel">A Level</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Performance Metrics -->
+                <fieldset class="fieldset">
+                    <legend>Performance Metrics</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cumulative_cgpa">Cumulative CGPA (0-5)</label>
+                            <input type="number" id="cumulative_cgpa" name="cumulative_cgpa" min="0" max="5" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="prev_semester_gpa">Previous Semester GPA (0-5)</label>
+                            <input type="number" id="prev_semester_gpa" name="prev_semester_gpa" min="0" max="5" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="utme_score">UTME Score (0-400)</label>
+                            <input type="number" id="utme_score" name="utme_score" min="0" max="400">
+                        </div>
+                        <div class="form-group">
+                            <label for="post_utme_score">Post-UTME Score (0-100)</label>
+                            <input type="number" id="post_utme_score" name="post_utme_score" min="0" max="100" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="continuous_assessment_avg">Continuous Assessment Avg (0-40)</label>
+                            <input type="number" id="continuous_assessment_avg" name="continuous_assessment_avg" min="0" max="40" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="attendance_rate">Attendance Rate (0-1)</label>
+                            <input type="number" id="attendance_rate" name="attendance_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.85">
+                        </div>
+                        <div class="form-group">
+                            <label for="carryover_courses_count">Carryover Courses Count</label>
+                            <input type="number" id="carryover_courses_count" name="carryover_courses_count" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="failed_courses_prev_semester">Failed Courses Last Semester</label>
+                            <input type="number" id="failed_courses_prev_semester" name="failed_courses_prev_semester" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="core_courses_failed_total">Core Courses Failed Total</label>
+                            <input type="number" id="core_courses_failed_total" name="core_courses_failed_total" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="course_load_units">Course Load Units</label>
+                            <input type="number" id="course_load_units" name="course_load_units" min="0">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Demographic Information -->
+                <fieldset class="fieldset">
+                    <legend>Demographic Information</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" min="15" max="65">
+                        </div>
+                        <div class="form-group">
+                            <label for="sex">Sex</label>
+                            <select id="sex" name="sex">
+                                <option value="">Select...</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="state_of_origin">State of Origin</label>
+                            <input type="text" id="state_of_origin" name="state_of_origin" placeholder="e.g., Lagos">
+                        </div>
+                        <div class="form-group">
+                            <label for="residency_status">Residency Status</label>
+                            <select id="residency_status" name="residency_status">
+                                <option value="">Select...</option>
+                                <option value="OnCampus">On Campus</option>
+                                <option value="OffCampus">Off Campus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="socioeconomic_band">Socioeconomic Band</label>
+                            <select id="socioeconomic_band" name="socioeconomic_band">
+                                <option value="">Select...</option>
+                                <option value="Low">Low</option>
+                                <option value="Middle">Middle</option>
+                                <option value="High">High</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Behavioral Information -->
+                <fieldset class="fieldset">
+                    <legend>Behavioral Information</legend>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="library_visits_per_month">Library Visits/Month</label>
+                            <input type="number" id="library_visits_per_month" name="library_visits_per_month" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="lms_logins_per_week">LMS Logins/Week</label>
+                            <input type="number" id="lms_logins_per_week" name="lms_logins_per_week" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="assignment_submission_rate">Assignment Submission Rate (0-1)</label>
+                            <input type="number" id="assignment_submission_rate" name="assignment_submission_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.9">
+                        </div>
+                        <div class="form-group">
+                            <label for="late_registration_flag">Late Registration</label>
+                            <select id="late_registration_flag" name="late_registration_flag">
+                                <option value="">Select...</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="financial_clearance_delay_days">Financial Clearance Delay (Days)</label>
+                            <input type="number" id="financial_clearance_delay_days" name="financial_clearance_delay_days" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="disciplinary_case_flag">Disciplinary Case</label>
+                            <select id="disciplinary_case_flag" name="disciplinary_case_flag">
+                                <option value="">Select...</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="counselling_visits_semester">Counselling Visits/Semester</label>
+                            <input type="number" id="counselling_visits_semester" name="counselling_visits_semester" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="medical_leave_flag">Medical Leave</label>
+                            <select id="medical_leave_flag" name="medical_leave_flag">
+                                <option value="">Select...</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Predict Risk</button>
+                    <button type="button" id="clearBtn" class="btn btn-secondary">Clear Form</button>
+                </div>
+            </form>
+
+            <div id="predictionError" class="error-message"></div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="card" style="display: none;">
+            <h2>Prediction Results</h2>
+            <div id="predictionResult" class="result-container">
+                <!-- Results will be populated here -->
+            </div>
+            <div class="form-actions">
+                <button id="newPredictionBtn" class="btn btn-primary">New Prediction</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
