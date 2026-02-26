@@ -29,9 +29,7 @@ logger = logging.getLogger(__name__)
 
 # Paths
 MODEL_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-    "..",
-    "..",
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
     "artifacts",
     "random_forest",
     "random_forest_pipeline.joblib",
@@ -108,10 +106,66 @@ def startup_event() -> None:
 
 
 def preprocess_input(student: Dict[str, Any]) -> pd.DataFrame:
-    """Convert input dict to DataFrame for pipeline compatibility."""
+    """
+    Preprocess student data for model inference.
+    
+    - Convert to DataFrame (single row)
+    - Add missing required fields with default values
+    - Ensure all expected columns are present
+    """
+    # Add missing required fields with default values
+    processed_student = student.copy()
+    
+    # Required fields that model expects but frontend doesn't provide
+    processed_student['student_id_hash'] = 0  # Default hash
+    processed_student['missing_count'] = 0  # Default missing count
+    
+    # Default values for commonly empty fields
+    if 'utme_score' not in processed_student or processed_student['utme_score'] is None:
+        processed_student['utme_score'] = 200  # Average UTME score
+    
+    if 'post_utme_score' not in processed_student or processed_student['post_utme_score'] is None:
+        processed_student['post_utme_score'] = 50.0  # Average Post-UTME score
+    
+    # Default values for other potentially missing fields
+    defaults = {
+        'institution_type': 'Federal',
+        'faculty': 'Engineering',
+        'department': 'Computer Science',
+        'level': 200,
+        'entry_mode': 'UTME',
+        'sex': 'Male',
+        'state_of_origin': 'Lagos',
+        'residency_status': 'OnCampus',
+        'socioeconomic_band': 'Middle',
+        'entry_qualification': 'SSCE',
+        'prev_semester_gpa': 3.0,
+        'cumulative_cgpa': 3.0,
+        'carryover_courses_count': 0,
+        'failed_courses_prev_semester': 0,
+        'core_courses_failed_total': 0,
+        'course_load_units': 18,
+        'continuous_assessment_avg': 20.0,
+        'attendance_rate': 0.8,
+        'library_visits_per_month': 4,
+        'lms_logins_per_week': 6,
+        'assignment_submission_rate': 0.9,
+        'late_registration_flag': 0,
+        'financial_clearance_delay_days': 0,
+        'disciplinary_case_flag': 0,
+        'counselling_visits_semester': 1,
+        'medical_leave_flag': 0
+    }
+    
+    # Apply defaults for missing fields
+    for field, default_value in defaults.items():
+        if field not in processed_student or processed_student[field] is None:
+            processed_student[field] = default_value
+    
     # Convert to DataFrame (single row)
-    df = pd.DataFrame([student])
+    df = pd.DataFrame([processed_student])
     logger.info(f"Input DataFrame shape: {df.shape}")
+    logger.info(f"Columns: {list(df.columns)}")
     return df
 
 

@@ -149,6 +149,9 @@ async function handlePrediction(e) {
             } else if (response.status === 401) {
                 showError(predictionError, 'Session expired. Please login again.');
                 handleLogout();
+            } else if (response.status === 403) {
+                showError(predictionError, 'Invalid or expired token. Please login again.');
+                handleLogout();
             } else {
                 showError(predictionError, data.error || 'Prediction failed');
             }

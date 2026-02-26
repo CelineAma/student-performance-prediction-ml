@@ -5,7 +5,7 @@ import { AuthRequest, AuthResponse } from '../types';
 
 // Mock user database (replace with real user store in production)
 const users: Record<string, string> = {
-  admin: '$2b$12$LQv3c1yqBFV6xTqB9vE9vQOqXjO5e8qF8pWqE', // password: admin123
+  [config.adminUsername]: config.adminPasswordHash!, // password from .env
 };
 
 export const authenticateUser = async (username: string, password: string): Promise<AuthResponse | null> => {
@@ -19,7 +19,7 @@ export const authenticateUser = async (username: string, password: string): Prom
     return null;
   }
 
-  const token = jwt.sign({ username }, config.jwtSecret!, { expiresIn: '1h' });
+  const token = jwt.sign({ username }, config.jwtSecret!, { expiresIn: '24h' });
   return { token };
 };
 
