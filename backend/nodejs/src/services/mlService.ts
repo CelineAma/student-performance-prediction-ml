@@ -20,7 +20,7 @@ export const predictRisk = async (request: PredictionRequest): Promise<Predictio
       request,
       {
         headers: { 'Content-Type': 'application/json' },
-        timeout: 15000, // 15 seconds timeout
+        timeout: 15000,
       }
     );
     return response.data;

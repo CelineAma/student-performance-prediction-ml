@@ -1,10 +1,8 @@
 // Student Performance Prediction System - Client-side JavaScript
 
-// Configuration
 const API_BASE_URL = 'http://localhost:3000/api';
 let authToken = null;
 
-// DOM Elements
 const loginSection = document.getElementById('loginSection');
 const predictionSection = document.getElementById('predictionSection');
 const resultsSection = document.getElementById('resultsSection');
@@ -13,22 +11,19 @@ const predictionForm = document.getElementById('predictionForm');
 const loginError = document.getElementById('loginError');
 const predictionError = document.getElementById('predictionError');
 
-// Initialize app
 document.addEventListener('DOMContentLoaded', () => {
     checkAuthStatus();
     setupEventListeners();
     setupStepProgress();
 });
 
-// Setup step progress indicator
 function setupStepProgress() {
     const stepItems = document.querySelectorAll('.step-item');
     const progressFill = document.getElementById('stepProgressFill');
     
     if (!stepItems.length || !progressFill) return;
     
-    // Scroll-based highlighting
-    const observerOptions = {
+const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -60% 0px',
         threshold: 0
@@ -43,14 +38,12 @@ function setupStepProgress() {
         });
     }, observerOptions);
     
-    // Observe all fieldsets
-    const fieldsets = document.querySelectorAll('.fieldset');
+const fieldsets = document.querySelectorAll('.fieldset');
     fieldsets.forEach(fieldset => {
         observer.observe(fieldset);
     });
     
-    // Click handlers for step items
-    stepItems.forEach(item => {
+stepItems.forEach(item => {
         item.addEventListener('click', () => {
             const targetId = item.dataset.target;
             const targetElement = document.getElementById(targetId);
@@ -61,15 +54,13 @@ function setupStepProgress() {
     });
 }
 
-// Update active step based on scroll position
 function updateActiveStep(targetId) {
     const stepItems = document.querySelectorAll('.step-item');
     const progressFill = document.getElementById('stepProgressFill');
     
     if (!stepItems.length || !progressFill) return;
     
-    // Find the step that corresponds to the target
-    let activeStepIndex = -1;
+let activeStepIndex = -1;
     stepItems.forEach((item, index) => {
         if (item.dataset.target === targetId) {
             activeStepIndex = index;
@@ -78,8 +69,7 @@ function updateActiveStep(targetId) {
     
     if (activeStepIndex === -1) return;
     
-    // Update step states
-    stepItems.forEach((item, index) => {
+stepItems.forEach((item, index) => {
         item.classList.remove('active', 'completed');
         
         if (index < activeStepIndex) {
@@ -89,12 +79,10 @@ function updateActiveStep(targetId) {
         }
     });
     
-    // Update progress bar
-    const progressPercentage = ((activeStepIndex + 1) / stepItems.length) * 100;
+const progressPercentage = ((activeStepIndex + 1) / stepItems.length) * 100;
     progressFill.style.width = `${progressPercentage}%`;
 }
 
-// Check if user is already authenticated
 function checkAuthStatus() {
     const token = localStorage.getItem('authToken');
     if (token) {
@@ -103,21 +91,16 @@ function checkAuthStatus() {
     }
 }
 
-// Setup event listeners
 function setupEventListeners() {
-    // Login form
-    loginForm.addEventListener('submit', handleLogin);
+loginForm.addEventListener('submit', handleLogin);
     
-    // Prediction form
-    predictionForm.addEventListener('submit', handlePrediction);
+predictionForm.addEventListener('submit', handlePrediction);
     
-    // Buttons
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+document.getElementById('logoutBtn').addEventListener('click', handleLogout);
     document.getElementById('clearBtn').addEventListener('click', clearForm);
     document.getElementById('newPredictionBtn').addEventListener('click', newPrediction);
 }
 
-// Handle login
 async function handleLogin(e) {
     e.preventDefault();
     
@@ -159,7 +142,6 @@ async function handleLogin(e) {
     }
 }
 
-// Handle prediction
 async function handlePrediction(e) {
     e.preventDefault();
     
@@ -168,23 +150,19 @@ async function handlePrediction(e) {
         return;
     }
     
-    // Collect form data
-    const formData = new FormData(predictionForm);
+const formData = new FormData(predictionForm);
     const studentData = {};
     
-    // Convert FormData to object and filter empty values
-    for (let [key, value] of formData.entries()) {
+for (let [key, value] of formData.entries()) {
         if (value.trim() !== '') {
-            // Convert numeric strings to numbers
-            if (['cumulative_cgpa', 'prev_semester_gpa', 'utme_score', 'post_utme_score', 
+if (['cumulative_cgpa', 'prev_semester_gpa', 'utme_score', 'post_utme_score', 
                 'continuous_assessment_avg', 'attendance_rate', 'carryover_courses_count',
                 'failed_courses_prev_semester', 'core_courses_failed_total', 'course_load_units',
                 'age', 'library_visits_per_month', 'lms_logins_per_week',
                 'assignment_submission_rate', 'financial_clearance_delay_days',
                 'counselling_visits_semester'].includes(key)) {
                 
-                // Handle boolean/integer fields
-                if (['late_registration_flag', 'disciplinary_case_flag', 'medical_leave_flag'].includes(key)) {
+if (['late_registration_flag', 'disciplinary_case_flag', 'medical_leave_flag'].includes(key)) {
                     studentData[key] = parseInt(value);
                 } else {
                     studentData[key] = parseFloat(value);
@@ -195,8 +173,7 @@ async function handlePrediction(e) {
         }
     }
     
-    // Validate required fields
-    if (!studentData.cumulative_cgpa) {
+if (!studentData.cumulative_cgpa) {
         showError(predictionError, 'Cumulative CGPA is required');
         return;
     }
@@ -239,7 +216,6 @@ async function handlePrediction(e) {
     }
 }
 
-// Show prediction results
 function showResults(data) {
     const resultContainer = document.getElementById('predictionResult');
     const isAtRisk = data.prediction === 1;
@@ -282,7 +258,6 @@ function showResults(data) {
     resultsSection.style.display = 'block';
 }
 
-// Handle logout
 function handleLogout() {
     localStorage.removeItem('authToken');
     authToken = null;
@@ -290,20 +265,17 @@ function handleLogout() {
     showSuccess('Logged out successfully');
 }
 
-// New prediction
 function newPrediction() {
     resultsSection.style.display = 'none';
     predictionSection.style.display = 'block';
     clearForm();
 }
 
-// Clear form
 function clearForm() {
     predictionForm.reset();
     hideError(predictionError);
 }
 
-// Show/hide sections
 function showLoginSection() {
     loginSection.style.display = 'block';
     predictionSection.style.display = 'none';
@@ -316,7 +288,6 @@ function showPredictionSection() {
     resultsSection.style.display = 'none';
 }
 
-// Error handling
 function showError(element, message) {
     element.textContent = message;
     element.classList.add('show');
@@ -329,7 +300,6 @@ function hideError(element) {
     element.classList.remove('show');
 }
 
-// Loading states
 function showLoading(button) {
     button.disabled = true;
     const originalText = button.textContent;
@@ -345,10 +315,8 @@ function hideLoading(button) {
     }
 }
 
-// Success message
 function showSuccess(message) {
-    // Create a temporary success message
-    const successDiv = document.createElement('div');
+const successDiv = document.createElement('div');
     successDiv.className = 'success-message';
     successDiv.textContent = message;
     successDiv.style.cssText = `
@@ -371,7 +339,6 @@ function showSuccess(message) {
     }, 3000);
 }
 
-// Add slide-in animation
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
@@ -391,7 +358,6 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Client-side validation helpers
 function validateField(field, value, rules) {
     for (const rule of rules) {
         if (rule.required && (!value || value.trim() === '')) {
@@ -414,7 +380,6 @@ function validateField(field, value, rules) {
     return null;
 }
 
-// Add real-time validation to key fields
 document.getElementById('cumulative_cgpa').addEventListener('blur', function() {
     const error = validateField('CGPA', this.value, [
         { required: true },
@@ -447,7 +412,6 @@ document.getElementById('attendance_rate').addEventListener('blur', function() {
     }
 });
 
-// Handle network errors gracefully
 window.addEventListener('online', () => {
     showSuccess('Connection restored');
 });
@@ -456,16 +420,13 @@ window.addEventListener('offline', () => {
     showError(predictionError, 'You are offline. Please check your connection.');
 });
 
-// Auto-refresh token before expiry (optional enhancement)
 function refreshToken() {
     // Implementation for token refresh if needed
     console.log('Token refresh would happen here if implemented');
 }
 
-// Periodic session check
 setInterval(() => {
     if (authToken) {
-        // Optionally validate token with server
-        console.log('Session active');
+console.log('Session active');
     }
 }, 60000); // Check every minute
