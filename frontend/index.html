@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <span class="navbar-logo">SPPS</span>
+                <span class="navbar-title">Student Performance Prediction System</span>
+            </div>
+            <div class="navbar-actions">
+                <button class="navbar-btn dashboard-btn">Dashboard</button>
+                <button id="logoutBtn" class="navbar-btn logout-btn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <header class="header">
             <h1>Student Academic Performance Prediction</h1>
@@ -15,7 +29,7 @@
 
         <!-- Login Section -->
         <section id="loginSection" class="card">
-            <h2>Login</h2>
+            <h2>🔐 Login</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -33,14 +47,60 @@
         <!-- Prediction Form Section -->
         <section id="predictionSection" class="card" style="display: none;">
             <div class="section-header">
-                <h2>Student Information</h2>
-                <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                <h2>🎓 Student Information</h2>
+            </div>
+            
+            <!-- Analytics Panel -->
+            <div class="analytics-panel">
+                <div class="analytics-item">
+                    <div class="analytics-value">1,247</div>
+                    <div class="analytics-label">Total Students Evaluated</div>
+                </div>
+                <div class="analytics-item">
+                    <div class="analytics-value">3.42</div>
+                    <div class="analytics-label">Average CGPA</div>
+                </div>
+                <div class="analytics-item">
+                    <div class="analytics-value">23.5%</div>
+                    <div class="analytics-label">Risk Rate</div>
+                </div>
+            </div>
+            
+            <!-- Step Progress Indicator -->
+            <div class="step-progress">
+                <div class="step-progress-container">
+                    <div class="step-progress-bar">
+                        <div class="step-progress-fill" id="stepProgressFill"></div>
+                    </div>
+                    <div class="step-progress-steps">
+                        <div class="step-item" data-step="1" data-target="academic">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Academic Info</div>
+                        </div>
+                        <div class="step-item" data-step="2" data-target="performance">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Performance</div>
+                        </div>
+                        <div class="step-item" data-step="3" data-target="demographic">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Demographics</div>
+                        </div>
+                        <div class="step-item" data-step="4" data-target="behavioral">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Behavior</div>
+                        </div>
+                        <div class="step-item" data-step="5" data-target="predict">
+                            <div class="step-number">5</div>
+                            <div class="step-label">Predict Result</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
             <form id="predictionForm">
                 <!-- Academic Information -->
-                <fieldset class="fieldset">
-                    <legend>Academic Information</legend>
+                <fieldset class="fieldset" id="academic">
+                    <legend>📚 Academic Information</legend>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="institution_type">Institution Type</label>
@@ -93,12 +153,12 @@
                 </fieldset>
 
                 <!-- Performance Metrics -->
-                <fieldset class="fieldset">
-                    <legend>Performance Metrics</legend>
+                <fieldset class="fieldset" id="performance">
+                    <legend>📊 Performance Metrics</legend>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="cumulative_cgpa">Cumulative CGPA (0-5)</label>
-                            <input type="number" id="cumulative_cgpa" name="cumulative_cgpa" min="0" max="5" step="0.01">
+                            <input type="number" id="cumulative_cgpa" name="cumulative_cgpa" min="0" max="5" step="0.01" title="Overall GPA across all semesters">
                         </div>
                         <div class="form-group">
                             <label for="prev_semester_gpa">Previous Semester GPA (0-5)</label>
@@ -106,7 +166,7 @@
                         </div>
                         <div class="form-group">
                             <label for="utme_score">UTME Score (0-400)</label>
-                            <input type="number" id="utme_score" name="utme_score" min="0" max="400">
+                            <input type="number" id="utme_score" name="utme_score" min="0" max="400" title="Score obtained in UTME examination">
                         </div>
                         <div class="form-group">
                             <label for="post_utme_score">Post-UTME Score (0-100)</label>
@@ -118,11 +178,11 @@
                         </div>
                         <div class="form-group">
                             <label for="attendance_rate">Attendance Rate (0-1)</label>
-                            <input type="number" id="attendance_rate" name="attendance_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.85">
+                            <input type="number" id="attendance_rate" name="attendance_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.85" title="Value between 0 and 1 (e.g. 0.85 = 85%)">
                         </div>
                         <div class="form-group">
                             <label for="carryover_courses_count">Carryover Courses Count</label>
-                            <input type="number" id="carryover_courses_count" name="carryover_courses_count" min="0">
+                            <input type="number" id="carryover_courses_count" name="carryover_courses_count" min="0" title="Number of courses the student must retake">
                         </div>
                         <div class="form-group">
                             <label for="failed_courses_prev_semester">Failed Courses Last Semester</label>
@@ -140,8 +200,8 @@
                 </fieldset>
 
                 <!-- Demographic Information -->
-                <fieldset class="fieldset">
-                    <legend>Demographic Information</legend>
+                <fieldset class="fieldset" id="demographic">
+                    <legend>👤 Demographic Information</legend>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="age">Age</label>
@@ -180,8 +240,8 @@
                 </fieldset>
 
                 <!-- Behavioral Information -->
-                <fieldset class="fieldset">
-                    <legend>Behavioral Information</legend>
+                <fieldset class="fieldset" id="behavioral">
+                    <legend>🧠 Behavioral Information</legend>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="library_visits_per_month">Library Visits/Month</label>
@@ -193,7 +253,7 @@
                         </div>
                         <div class="form-group">
                             <label for="assignment_submission_rate">Assignment Submission Rate (0-1)</label>
-                            <input type="number" id="assignment_submission_rate" name="assignment_submission_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.9">
+                            <input type="number" id="assignment_submission_rate" name="assignment_submission_rate" min="0" max="1" step="0.01" placeholder="e.g., 0.9" title="Rate of assignments submitted on time">
                         </div>
                         <div class="form-group">
                             <label for="late_registration_flag">Late Registration</label>
@@ -241,15 +301,28 @@
 
         <!-- Results Section -->
         <section id="resultsSection" class="card" style="display: none;">
-            <h2>Prediction Results</h2>
+            <h2>📈 Prediction Results</h2>
             <div id="predictionResult" class="result-container">
-                <!-- Results will be populated here -->
+                <div class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <div class="empty-state-message">Submit student information to generate a risk prediction.</div>
+                </div>
             </div>
             <div class="form-actions">
                 <button id="newPredictionBtn" class="btn btn-primary">New Prediction</button>
             </div>
         </section>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-item">Student Performance Prediction System</div>
+            <div class="footer-item">Final Year Project</div>
+            <div class="footer-item">Department of Computer Science</div>
+            <div class="footer-item">© 2026</div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

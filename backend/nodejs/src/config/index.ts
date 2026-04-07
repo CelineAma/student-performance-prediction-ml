@@ -15,5 +15,5 @@ if (!config.jwtSecret) {
 }
 
 if (!config.adminPasswordHash) {
-  throw new Error('ADMIN_PASSWORD_HASH environment variable is required');
+  throw new Error('Admin password hash environment variable is required');
 }

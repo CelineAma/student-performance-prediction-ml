@@ -25,6 +25,135 @@
     --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
+/* Subtle Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Page Load Animations */
+.navbar {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+.header {
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+/* Remove animations from form cards to prevent layout issues */
+#loginSection.card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+#predictionSection.card {
+    /* No animation - prevents layout breaking when section is shown */
+    animation: none;
+    /* Ensure proper display when JavaScript sets display: block */
+    position: relative;
+    opacity: 1;
+    transform: none;
+}
+
+/* Ensure all form elements in prediction section display properly */
+#predictionSection .fieldset {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+#predictionSection .form-row {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    /* Ensure grid layout works properly */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+#predictionSection .form-group {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    /* Ensure form groups display properly */
+    display: block;
+    margin-bottom: 24px;
+}
+
+#predictionSection .analytics-panel {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+#predictionSection .step-progress {
+    position: relative;
+    opacity: 1;
+    transform: none;
+    animation: none;
+}
+
+/* Force proper display when prediction section is shown */
+#predictionSection[style*="display: block"],
+#predictionSection[style*="display:block"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+#predictionSection[style*="display: block"] *,
+#predictionSection[style*="display:block"] * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+#resultsSection.card {
+    animation: fadeInUp 0.6s ease-out 0.4s;
+    animation-fill-mode: both;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -39,6 +168,204 @@ body {
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Navigation Bar Styles */
+.navbar {
+    background-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.05em;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: -0.025em;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar-btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: var(--font-family);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    letter-spacing: 0.025em;
+}
+
+.dashboard-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.logout-btn {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.logout-btn:hover {
+    background-color: #c53030;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Step Progress Indicator */
+.step-progress {
+    margin-bottom: 40px;
+    padding: 24px 0;
+}
+
+.step-progress-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.step-progress-bar {
+    height: 4px;
+    background-color: var(--border-light);
+    border-radius: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.step-progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+    position: relative;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--border-light);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 8px;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    transform: scale(1);
+}
+
+.step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.3;
+    transition: var(--transition);
+    letter-spacing: 0.025em;
+}
+
+.step-item.active .step-number {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+    transform: scale(1.1);
+    animation: pulse 2s infinite;
+}
+
+.step-item.active .step-label {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.step-item.completed .step-number {
+    background-color: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
+    transform: scale(1.05);
+}
+
+.step-item.completed .step-label {
+    color: var(--success-color);
+}
+
+.step-item:hover .step-number {
+    transform: scale(1.15);
+    box-shadow: var(--shadow-sm);
+}
+
+.step-item:hover .step-label {
+    color: var(--text-primary);
+    transform: translateY(-1px);
 }
 
 .container {
@@ -110,6 +437,7 @@ body {
     background-color: var(--background-secondary);
     transition: var(--transition);
     color: var(--text-primary);
+    transform: translateY(0);
 }
 
 .form-group input:focus,
@@ -117,6 +445,13 @@ body {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(26, 54, 93, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-group input:hover:not(:focus),
+.form-group select:hover:not(:focus) {
+    border-color: var(--text-muted);
+    box-shadow: var(--shadow-sm);
 }
 
 .form-group input::placeholder {
@@ -136,6 +471,16 @@ body {
     padding: 32px;
     margin-bottom: 32px;
     background-color: var(--background-tertiary);
+    transition: var(--transition);
+    /* Ensure fieldsets display properly when prediction section is shown */
+    position: relative;
+    opacity: 1;
+    transform: none;
+}
+
+.fieldset:hover {
+    box-shadow: var(--shadow-sm);
+    border-color: var(--border-color);
 }
 
 .fieldset legend {
@@ -145,6 +490,7 @@ body {
     font-size: 16px;
     margin-bottom: 8px;
     letter-spacing: 0.025em;
+    transition: var(--transition);
 }
 
 /* Button Styles */
@@ -163,6 +509,27 @@ body {
     justify-content: center;
     min-height: 48px;
     letter-spacing: 0.025em;
+    transform: translateY(0);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
@@ -172,7 +539,7 @@ body {
 
 .btn-primary:hover {
     background-color: #2a4365;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -183,7 +550,7 @@ body {
 
 .btn-secondary:hover {
     background-color: #2d3748;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-md);
 }
 
@@ -240,6 +607,127 @@ body {
     padding: 40px;
     border-radius: var(--border-radius-lg);
     margin: 32px 0;
+}
+
+/* Risk Badge */
+.risk-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.risk-high {
+    background-color: rgba(229, 62, 62, 0.15);
+    color: var(--danger-color);
+    border: 2px solid var(--danger-color);
+}
+
+.risk-low {
+    background-color: rgba(56, 161, 105, 0.15);
+    color: var(--success-color);
+    border: 2px solid var(--success-color);
+}
+
+/* Risk Meter */
+.risk-meter-container {
+    margin: 32px 0;
+    animation: fadeInUp 0.6s ease-out 0.1s both;
+}
+
+.risk-meter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 12px;
+}
+
+.risk-meter-bar {
+    width: 100%;
+    height: 12px;
+    background-color: var(--border-light);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.risk-meter-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.risk-fill-high {
+    background: linear-gradient(90deg, #e53e3e, #fc8181);
+}
+
+.risk-fill-low {
+    background: linear-gradient(90deg, #38a169, #68d391);
+}
+
+.risk-meter-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.risk-meter-percentage {
+    font-size: 32px;
+    font-weight: 800;
+    margin-top: 16px;
+    letter-spacing: -0.025em;
+}
+
+.risk-high + .risk-meter-percentage {
+    color: var(--danger-color);
+}
+
+.risk-low + .risk-meter-percentage {
+    color: var(--success-color);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 40px;
+    color: var(--text-muted);
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    opacity: 0.6;
+}
+
+.empty-state-message {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    opacity: 0.8;
 }
 
 .result-risk-high {
@@ -302,6 +790,85 @@ body {
         padding: 24px 16px;
     }
     
+    .navbar-container {
+        padding: 0 16px;
+        height: 56px;
+    }
+    
+    .navbar-brand {
+        gap: 12px;
+    }
+    
+    .navbar-logo {
+        font-size: 20px;
+    }
+    
+    .navbar-title {
+        font-size: 16px;
+        display: none;
+    }
+    
+    .navbar-actions {
+        gap: 8px;
+    }
+    
+    .navbar-btn {
+        padding: 6px 16px;
+        font-size: 13px;
+        min-height: 36px;
+    }
+    
+    .step-progress {
+        margin-bottom: 32px;
+        padding: 20px 0;
+    }
+    
+    .step-progress-steps {
+        gap: 8px;
+    }
+    
+    .step-number {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    .step-label {
+        font-size: 11px;
+    }
+    
+    .risk-badge {
+        padding: 6px 16px;
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+    
+    .risk-meter-container {
+        margin: 24px 0;
+    }
+    
+    .risk-meter-bar {
+        height: 10px;
+    }
+    
+    .risk-meter-percentage {
+        font-size: 28px;
+        margin-top: 12px;
+    }
+    
+    .empty-state {
+        padding: 40px 30px;
+    }
+    
+    .empty-state-icon {
+        font-size: 40px;
+        margin-bottom: 16px;
+    }
+    
+    .empty-state-message {
+        font-size: 16px;
+    }
+    
     .card {
         padding: 24px;
         margin-bottom: 24px;
@@ -350,6 +917,90 @@ body {
 @media (max-width: 480px) {
     .container {
         padding: 20px 12px;
+    }
+    
+    .navbar-container {
+        padding: 0 12px;
+        height: 52px;
+    }
+    
+    .navbar-brand {
+        gap: 10px;
+    }
+    
+    .navbar-logo {
+        font-size: 18px;
+    }
+    
+    .navbar-actions {
+        gap: 6px;
+    }
+    
+    .navbar-btn {
+        padding: 5px 12px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+    
+    .dashboard-btn {
+        display: none;
+    }
+    
+    .step-progress {
+        margin-bottom: 24px;
+        padding: 16px 0;
+    }
+    
+    .step-progress-container {
+        max-width: 100%;
+    }
+    
+    .step-progress-steps {
+        gap: 4px;
+    }
+    
+    .step-number {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+    
+    .step-label {
+        font-size: 10px;
+        line-height: 1.2;
+    }
+    
+    .risk-badge {
+        padding: 5px 14px;
+        font-size: 11px;
+        margin-bottom: 16px;
+    }
+    
+    .risk-meter-container {
+        margin: 20px 0;
+    }
+    
+    .risk-meter-bar {
+        height: 8px;
+    }
+    
+    .risk-meter-percentage {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    
+    .empty-state {
+        padding: 30px 20px;
+    }
+    
+    .empty-state-icon {
+        font-size: 32px;
+        margin-bottom: 12px;
+    }
+    
+    .empty-state-message {
+        font-size: 14px;
     }
     
     .card {
@@ -434,4 +1085,58 @@ select:focus {
         border: 1px solid #000;
         background: white;
     }
+}
+
+/* Footer */
+.footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-item {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* Analytics Panel */
+.analytics-panel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: linear-gradient(135deg, var(--background-tertiary), var(--background-secondary));
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.analytics-item {
+    text-align: center;
+    flex: 1;
+}
+
+.analytics-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.analytics-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
 }

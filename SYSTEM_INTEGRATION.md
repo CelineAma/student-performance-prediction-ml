@@ -215,3 +215,100 @@ curl -X POST http://localhost:3000/api/predict \
 - Implement health checks
 - Set up alerting for failures
 - Track prediction accuracy over time
+
+## Sample Student Data for Testing
+### Student 1: High-Performing Student (Low Risk)
+Student ID: 2023001
+Age: 20
+Gender: Female
+Department: Computer Science
+Level: 200
+Semester: 2
+GPA: 3.8
+Attendance Rate: 0.95
+Library Visits/Month: 8
+LMS Logins/Week: 12
+Assignment Submission Rate: 1.0
+Late Registration: 0
+Financial Clearance Delay: 0
+Disciplinary Case: 0
+Counselling Visits: 0
+Medical Leave: 0
+
+### Student 2: At-Risk Student (High Risk)
+Student ID: 2023002
+Age: 22
+Gender: Male
+Department: Physics
+Level: 300
+Semester: 1
+GPA: 1.8
+Attendance Rate: 0.45
+Library Visits/Month: 1
+LMS Logins/Week: 2
+Assignment Submission Rate: 0.3
+Late Registration: 1
+Financial Clearance Delay: 15
+Disciplinary Case: 1
+Counselling Visits: 3
+Medical Leave: 1
+
+### Student 3: Average Student (Medium Risk)
+Student ID: 2023003
+Age: 21
+Gender: Female
+Department: Mathematics
+Level: 200
+Semester: 2
+GPA: 2.8
+Attendance Rate: 0.75
+Library Visits/Month: 4
+LMS Logins/Week: 6
+Assignment Submission Rate: 0.8
+Late Registration: 0
+Financial Clearance Delay: 5
+Disciplinary Case: 0
+Counselling Visits: 1
+Medical Leave: 0
+
+### Student 4: Part-time Working Student (Medium-High Risk)
+Student ID: 2023004
+Age: 24
+Gender: Male
+Department: Economics
+Level: 400
+Semester: 1
+GPA: 2.2
+Attendance Rate: 0.60
+Library Visits/Month: 2
+LMS Logins/Week: 4
+Assignment Submission Rate: 0.6
+Late Registration: 1
+Financial Clearance Delay: 10
+Disciplinary Case: 0
+Counselling Visits: 2
+Medical Leave: 0
+
+### Field Value Guidelines:
+Gender: Male, Female
+Department: Computer Science, Physics, Mathematics, Economics, Chemistry, Biology
+Level: 100, 200, 300, 400, 500
+Semester: 1 or 2
+GPA: 0.0 - 5.0 (Nigerian grading scale)
+Attendance Rate: 0.0 - 1.0 (decimal, e.g., 0.85 = 85%)
+Library Visits/Month: 0 - 20 (integer)
+LMS Logins/Week: 0 - 20 (integer)
+Assignment Submission Rate: 0.0 - 1.0 (decimal)
+Late Registration: 0 or 1 (0 = No, 1 = Yes)
+Financial Clearance Delay: 0 - 30 (days)
+Disciplinary Case: 0 or 1 (0 = No, 1 = Yes)
+Counselling Visits: 0 - 10 (per semester)
+Medical Leave: 0 or 1 (0 = No, 1 = Yes)
+
+Use these sample data points to test different risk scenarios and verify the prediction system is working correctly!
+
+### taskkill /F /IM python.exe
+### taskkill /F /PID 21444
+
+Check listening port:
+netstat -ano | findstr :3000

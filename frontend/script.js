@@ -17,7 +17,82 @@ const predictionError = document.getElementById('predictionError');
 document.addEventListener('DOMContentLoaded', () => {
     checkAuthStatus();
     setupEventListeners();
+    setupStepProgress();
 });
+
+// Setup step progress indicator
+function setupStepProgress() {
+    const stepItems = document.querySelectorAll('.step-item');
+    const progressFill = document.getElementById('stepProgressFill');
+    
+    if (!stepItems.length || !progressFill) return;
+    
+    // Scroll-based highlighting
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetId = entry.target.id;
+                updateActiveStep(targetId);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all fieldsets
+    const fieldsets = document.querySelectorAll('.fieldset');
+    fieldsets.forEach(fieldset => {
+        observer.observe(fieldset);
+    });
+    
+    // Click handlers for step items
+    stepItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const targetId = item.dataset.target;
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+}
+
+// Update active step based on scroll position
+function updateActiveStep(targetId) {
+    const stepItems = document.querySelectorAll('.step-item');
+    const progressFill = document.getElementById('stepProgressFill');
+    
+    if (!stepItems.length || !progressFill) return;
+    
+    // Find the step that corresponds to the target
+    let activeStepIndex = -1;
+    stepItems.forEach((item, index) => {
+        if (item.dataset.target === targetId) {
+            activeStepIndex = index;
+        }
+    });
+    
+    if (activeStepIndex === -1) return;
+    
+    // Update step states
+    stepItems.forEach((item, index) => {
+        item.classList.remove('active', 'completed');
+        
+        if (index < activeStepIndex) {
+            item.classList.add('completed');
+        } else if (index === activeStepIndex) {
+            item.classList.add('active');
+        }
+    });
+    
+    // Update progress bar
+    const progressPercentage = ((activeStepIndex + 1) / stepItems.length) * 100;
+    progressFill.style.width = `${progressPercentage}%`;
+}
 
 // Check if user is already authenticated
 function checkAuthStatus() {
@@ -172,12 +247,28 @@ function showResults(data) {
     
     resultContainer.innerHTML = `
         <div class="result-container ${isAtRisk ? 'result-risk-high' : 'result-risk-low'}">
+            <!-- Risk Badge -->
+            <div class="risk-badge ${isAtRisk ? 'risk-high' : 'risk-low'}">
+                ${isAtRisk ? '🔴 High Risk' : '🟢 Low Risk'}
+            </div>
+            
+            <!-- Risk Meter -->
+            <div class="risk-meter-container">
+                <div class="risk-meter-label">Risk Level</div>
+                <div class="risk-meter-bar">
+                    <div class="risk-meter-fill ${isAtRisk ? 'risk-fill-high' : 'risk-fill-low'}" 
+                         style="width: ${probability}%">
+                    </div>
+                </div>
+                <div class="risk-meter-percentage">${probability}%</div>
+            </div>
+            
+            <!-- Result Title -->
             <div class="result-title">
                 ${isAtRisk ? '⚠️ At Risk' : '✅ Not at Risk'}
             </div>
-            <div class="result-probability">
-                Risk Probability: ${probability}%
-            </div>
+            
+            <!-- Result Description -->
             <div class="result-description">
                 ${isAtRisk 
                     ? 'The student shows indicators of academic risk. Consider academic support interventions.'
