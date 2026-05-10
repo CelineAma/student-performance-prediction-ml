@@ -27,13 +27,18 @@ from pydantic import BaseModel, Field
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Paths
-MODEL_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-    "artifacts",
-    "random_forest",
-    "random_forest_pipeline.joblib",
-)
+# Paths - Use absolute path for deployment
+if os.getenv('RENDER'):
+    # Render deployment
+    MODEL_PATH = "/opt/render/project/src/artifacts/random_forest/random_forest_pipeline.joblib"
+else:
+    # Local development
+    MODEL_PATH = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        "artifacts",
+        "random_forest",
+        "random_forest_pipeline.joblib",
+    )
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -92,11 +97,25 @@ def load_model() -> None:
     """Load the trained Random Forest pipeline from disk."""
     global model
     try:
+        logger.info(f"Attempting to load model from: {MODEL_PATH}")
+        logger.info(f"Model file exists: {os.path.exists(MODEL_PATH)}")
+        
+        if not os.path.exists(MODEL_PATH):
+            logger.error(f"Model file not found at: {MODEL_PATH}")
+            # List files in the directory to help debug
+            model_dir = os.path.dirname(MODEL_PATH)
+            if os.path.exists(model_dir):
+                logger.info(f"Files in model directory: {os.listdir(model_dir)}")
+            else:
+                logger.error(f"Model directory does not exist: {model_dir}")
+            raise RuntimeError(f"Model file not found at {MODEL_PATH}")
+        
         model = joblib.load(MODEL_PATH)
         logger.info(f"Model loaded successfully from {MODEL_PATH}")
+        logger.info(f"Model type: {type(model)}")
     except Exception as e:
         logger.error(f"Failed to load model: {e}")
-        raise RuntimeError("Model loading failed")
+        raise RuntimeError(f"Model loading failed: {e}")
 
 
 @app.on_event("startup")
