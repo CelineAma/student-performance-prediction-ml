@@ -1,6 +1,6 @@
 // Student Performance Prediction System - Client-side JavaScript
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = 'https://student-performance-prediction-ml-mfjd.onrender.com/api';
 let authToken = null;
 
 const loginSection = document.getElementById('loginSection');

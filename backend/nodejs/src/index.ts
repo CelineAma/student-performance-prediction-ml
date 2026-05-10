@@ -7,7 +7,9 @@ import apiRoutes from './routes';
 const app = express();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: 'https://subtle-biscuit-c0a6ad.netlify.app'
+}));
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
