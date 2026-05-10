@@ -8,7 +8,7 @@ const app = express();
 
 app.use(helmet());
 app.use(cors({
-  origin: 'https://subtle-biscuit-c0a6ad.netlify.app'
+  origin: 'https://spps-celine.netlify.app'
 }));
 
 app.use(express.json({ limit: '10mb' }));
