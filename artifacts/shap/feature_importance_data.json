@@ -1,0 +1,62 @@
+[
+  {
+    "feature": "cumulative_cgpa",
+    "importance": 0.2051483079270729
+  },
+  {
+    "feature": "failed_courses_prev_semester",
+    "importance": 0.1240957310157935
+  },
+  {
+    "feature": "carryover_courses_count",
+    "importance": 0.08311175942961081
+  },
+  {
+    "feature": "core_courses_failed_total",
+    "importance": 0.042865260756556646
+  },
+  {
+    "feature": "continuous_assessment_avg",
+    "importance": 0.03400349698394709
+  },
+  {
+    "feature": "prev_semester_gpa",
+    "importance": 0.026954493825805392
+  },
+  {
+    "feature": "department_Microbiology",
+    "importance": 0.018327138246657198
+  },
+  {
+    "feature": "faculty_Engineering",
+    "importance": 0.016845028760705035
+  },
+  {
+    "feature": "post_utme_score",
+    "importance": 0.016134414120981006
+  },
+  {
+    "feature": "age",
+    "importance": 0.01532319526712798
+  },
+  {
+    "feature": "assignment_submission_rate",
+    "importance": 0.014816708165263691
+  },
+  {
+    "feature": "attendance_rate",
+    "importance": 0.01289151459688069
+  },
+  {
+    "feature": "utme_score",
+    "importance": 0.01279244256925161
+  },
+  {
+    "feature": "course_load_units",
+    "importance": 0.012742500344708951
+  },
+  {
+    "feature": "faculty_Social Sciences",
+    "importance": 0.011745434776697782
+  }
+]

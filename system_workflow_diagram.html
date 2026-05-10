@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operational Workflow - Student Performance Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+        .legend-item {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Operational Workflow of the Prediction System</h1>
+        
+        <div class="diagram-container">
+            <svg width="900" height="800" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <style>
+                        .start-end { fill: #27ae60; stroke: #2c3e50; stroke-width: 2; }
+                        .process { fill: #3498db; stroke: #2c3e50; stroke-width: 2; }
+                        .decision { fill: #f39c12; stroke: #2c3e50; stroke-width: 2; }
+                        .data { fill: #9b59b6; stroke: #2c3e50; stroke-width: 2; }
+                        .arrow { stroke: #34495e; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+                        .text-white { font-family: 'Segoe UI', sans-serif; font-size: 11px; font-weight: bold; fill: white; }
+                        .text-dark { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #2c3e50; }
+                        .text-label { font-family: 'Segoe UI', sans-serif; font-size: 9px; fill: #7f8c8d; font-style: italic; }
+                    </style>
+                    
+                    <!-- Arrow marker -->
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+                    </marker>
+                </defs>
+                
+                <!-- Start -->
+                <ellipse cx="450" cy="40" rx="60" ry="25" class="start-end"/>
+                <text x="450" y="45" class="text-white" text-anchor="middle">Start</text>
+                
+                <!-- Arrow 1 -->
+                <path d="M 450 65 L 450 85" class="arrow"/>
+                
+                <!-- User opens web application -->
+                <rect x="350" y="90" width="200" height="40" class="process" rx="5"/>
+                <text x="450" y="105" class="text-white" text-anchor="middle">User opens the</text>
+                <text x="450" y="118" class="text-white" text-anchor="middle">web application</text>
+                
+                <!-- Arrow 2 -->
+                <path d="M 450 130 L 450 150" class="arrow"/>
+                
+                <!-- User logs into the system -->
+                <rect x="350" y="155" width="200" height="40" class="process" rx="5"/>
+                <text x="450" y="170" class="text-white" text-anchor="middle">User logs into</text>
+                <text x="450" y="183" class="text-white" text-anchor="middle">the system</text>
+                
+                <!-- Arrow 3 -->
+                <path d="M 450 195 L 450 215" class="arrow"/>
+                
+                <!-- System authenticates user using JWT -->
+                <rect x="330" y="220" width="240" height="40" class="process" rx="5"/>
+                <text x="450" y="235" class="text-white" text-anchor="middle">System authenticates user</text>
+                <text x="450" y="248" class="text-white" text-anchor="middle">using JWT</text>
+                
+                <!-- Arrow 4 -->
+                <path d="M 450 260 L 450 280" class="arrow"/>
+                
+                <!-- User inputs student academic data -->
+                <rect x="300" y="285" width="300" height="80" class="data" rx="5"/>
+                <text x="450" y="300" class="text-white" text-anchor="middle">User inputs student academic data:</text>
+                <text x="450" y="315" class="text-white" text-anchor="middle">- CGPA</text>
+                <text x="450" y="328" class="text-white" text-anchor="middle">- Attendance</text>
+                <text x="450" y="341" class="text-white" text-anchor="middle">- Previous GPA</text>
+                <text x="450" y="354" class="text-white" text-anchor="middle">- Failed Courses</text>
+                
+                <!-- Additional data fields (second column) -->
+                <text x="580" y="315" class="text-white" text-anchor="middle">- Carryover Courses</text>
+                <text x="580" y="328" class="text-white" text-anchor="middle">- Faculty</text>
+                <text x="580" y="341" class="text-white" text-anchor="middle">- Institution Type</text>
+                <text x="580" y="354" class="text-white" text-anchor="middle"></text>
+                
+                <!-- Arrow 5 -->
+                <path d="M 450 365 L 450 385" class="arrow"/>
+                
+                <!-- Frontend sends request to Node.js API -->
+                <rect x="320" y="390" width="260" height="40" class="process" rx="5"/>
+                <text x="450" y="405" class="text-white" text-anchor="middle">Frontend sends request to</text>
+                <text x="450" y="418" class="text-white" text-anchor="middle">Node.js API</text>
+                
+                <!-- Arrow 6 -->
+                <path d="M 450 430 L 450 450" class="arrow"/>
+                
+                <!-- Backend validates input data -->
+                <rect x="330" y="455" width="240" height="40" class="process" rx="5"/>
+                <text x="450" y="470" class="text-white" text-anchor="middle">Backend validates</text>
+                <text x="450" y="483" class="text-white" text-anchor="middle">input data</text>
+                
+                <!-- Arrow 7 -->
+                <path d="M 450 495 L 450 515" class="arrow"/>
+                
+                <!-- Backend sends prediction request to Python ML service -->
+                <rect x="280" y="520" width="340" height="40" class="process" rx="5"/>
+                <text x="450" y="535" class="text-white" text-anchor="middle">Backend sends prediction request to</text>
+                <text x="450" y="548" class="text-white" text-anchor="middle">Python ML service</text>
+                
+                <!-- Arrow 8 -->
+                <path d="M 450 560 L 450 580" class="arrow"/>
+                
+                <!-- Python ML service loads trained Random Forest model -->
+                <rect x="270" y="585" width="360" height="40" class="process" rx="5"/>
+                <text x="450" y="600" class="text-white" text-anchor="middle">Python ML service loads trained</text>
+                <text x="450" y="613" class="text-white" text-anchor="middle">Random Forest model</text>
+                
+                <!-- Arrow 9 -->
+                <path d="M 450 625 L 450 645" class="arrow"/>
+                
+                <!-- Model processes input features -->
+                <rect x="340" y="650" width="220" height="40" class="process" rx="5"/>
+                <text x="450" y="665" class="text-white" text-anchor="middle">Model processes</text>
+                <text x="450" y="678" class="text-white" text-anchor="middle">input features</text>
+                
+                <!-- Arrow 10 -->
+                <path d="M 450 690 L 450 710" class="arrow"/>
+                
+                <!-- Model generates prediction -->
+                <path d="M 380 715 L 520 715 L 450 775 L 380 715 Z" class="decision"/>
+                <text x="450" y="735" class="text-white" text-anchor="middle">Model generates</text>
+                <text x="450" y="748" class="text-white" text-anchor="middle">prediction:</text>
+                <text x="450" y="761" class="text-white" text-anchor="middle">- At Risk</text>
+                <text x="450" y="774" class="text-white" text-anchor="middle">- Not At Risk</text>
+                
+                <!-- Arrow 11 -->
+                <path d="M 450 775 L 450 795" class="arrow"/>
+                
+                <!-- Prediction result returned to backend -->
+                <rect x="300" y="800" width="300" height="40" class="process" rx="5"/>
+                <text x="450" y="815" class="text-white" text-anchor="middle">Prediction result returned</text>
+                <text x="450" y="828" class="text-white" text-anchor="middle">to backend</text>
+                
+                <!-- Arrow 12 -->
+                <path d="M 450 840 L 450 860" class="arrow"/>
+                
+                <!-- Backend sends result to frontend -->
+                <rect x="330" y="865" width="240" height="40" class="process" rx="5"/>
+                <text x="450" y="880" class="text-white" text-anchor="middle">Backend sends result</text>
+                <text x="450" y="893" class="text-white" text-anchor="middle">to frontend</text>
+                
+                <!-- Arrow 13 -->
+                <path d="M 450 905 L 450 925" class="arrow"/>
+                
+                <!-- Frontend displays prediction and probability -->
+                <rect x="280" y="930" width="340" height="40" class="process" rx="5"/>
+                <text x="450" y="945" class="text-white" text-anchor="middle">Frontend displays prediction</text>
+                <text x="450" y="958" class="text-white" text-anchor="middle">and probability</text>
+                
+                <!-- Arrow 14 -->
+                <path d="M 450 970 L 450 990" class="arrow"/>
+                
+                <!-- End -->
+                <ellipse cx="450" cy="1015" rx="60" ry="25" class="start-end"/>
+                <text x="450" y="1020" class="text-white" text-anchor="middle">End</text>
+                
+                <!-- Side annotations -->
+                <text x="50" y="110" class="text-label">User Interface</text>
+                <text x="50" y="235" class="text-label">Authentication</text>
+                <text x="50" y="325" class="text-label">Data Collection</text>
+                <text x="50" y="470" class="text-label">API Processing</text>
+                <text x="50" y="600" class="text-label">ML Processing</text>
+                <text x="50" y="745" class="text-label">Prediction</text>
+                <text x="50" y="880" class="text-label">Response</text>
+                <text x="50" y="950" class="text-label">Display Results</text>
+                
+                <!-- Technology stack labels -->
+                <text x="750" y="110" class="text-label">HTML/CSS/JS</text>
+                <text x="750" y="235" class="text-label">JWT</text>
+                <text x="750" y="470" class="text-label">Node.js/Express</text>
+                <text x="750" y="600" class="text-label">Python/FastAPI</text>
+                <text x="750" y="745" class="text-label">Random Forest</text>
+                <text x="750" y="950" class="text-label">Web Browser</text>
+                
+                <!-- Process flow numbers -->
+                <circle cx="680" cy="110" r="12" fill="#e74c3c"/>
+                <text x="680" y="115" class="text-white" text-anchor="middle" font-size="10">1</text>
+                
+                <circle cx="680" cy="170" r="12" fill="#e74c3c"/>
+                <text x="680" y="175" class="text-white" text-anchor="middle" font-size="10">2</text>
+                
+                <circle cx="680" cy="240" r="12" fill="#e74c3c"/>
+                <text x="680" y="245" class="text-white" text-anchor="middle" font-size="10">3</text>
+                
+                <circle cx="680" cy="325" r="12" fill="#e74c3c"/>
+                <text x="680" y="330" class="text-white" text-anchor="middle" font-size="10">4</text>
+                
+                <circle cx="680" cy="410" r="12" fill="#e74c3c"/>
+                <text x="680" y="415" class="text-white" text-anchor="middle" font-size="10">5</text>
+                
+                <circle cx="680" cy="475" r="12" fill="#e74c3c"/>
+                <text x="680" y="480" class="text-white" text-anchor="middle" font-size="10">6</text>
+                
+                <circle cx="680" cy="540" r="12" fill="#e74c3c"/>
+                <text x="680" y="545" class="text-white" text-anchor="middle" font-size="10">7</text>
+                
+                <circle cx="680" cy="605" r="12" fill="#e74c3c"/>
+                <text x="680" y="610" class="text-white" text-anchor="middle" font-size="10">8</text>
+                
+                <circle cx="680" cy="670" r="12" fill="#e74c3c"/>
+                <text x="680" y="675" class="text-white" text-anchor="middle" font-size="10">9</text>
+                
+                <circle cx="680" cy="745" r="12" fill="#e74c3c"/>
+                <text x="680" y="750" class="text-white" text-anchor="middle" font-size="10">10</text>
+                
+                <circle cx="680" cy="820" r="12" fill="#e74c3c"/>
+                <text x="680" y="825" class="text-white" text-anchor="middle" font-size="10">11</text>
+                
+                <circle cx="680" cy="885" r="12" fill="#e74c3c"/>
+                <text x="680" y="890" class="text-white" text-anchor="middle" font-size="10">12</text>
+                
+                <circle cx="680" cy="950" r="12" fill="#e74c3c"/>
+                <text x="680" y="955" class="text-white" text-anchor="middle" font-size="10">13</text>
+            </svg>
+        </div>
+        
+        <div class="legend">
+            <h3>Flowchart Symbols</h3>
+            <div class="legend-item"><strong>Ovals (Green):</strong> Start and End points of the process</div>
+            <div class="legend-item"><strong>Rectangles (Blue):</strong> Process steps and operations</div>
+            <div class="legend-item"><strong>Parallelograms (Purple):</strong> Data input/output operations</div>
+            <div class="legend-item"><strong>Diamond (Orange):</strong> Decision points and prediction generation</div>
+            <div class="legend-item"><strong>Arrows:</strong> Flow direction showing the sequence of operations</div>
+            <div class="legend-item"><strong>Numbers (Red):</strong> Sequential order of process steps</div>
+        </div>
+    </div>
+</body>
+</html>

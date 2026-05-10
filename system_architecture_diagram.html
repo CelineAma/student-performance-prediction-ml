@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Architecture - Student Performance Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .legend h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 16px;
+        }
+        .legend-item {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>System Architecture of the Student Performance Prediction System</h1>
+        
+        <div class="diagram-container">
+            <svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+                <!-- Define styles -->
+                <defs>
+                    <style>
+                        .layer-box { fill: #ffffff; stroke: #2c3e50; stroke-width: 2; }
+                        .frontend-fill { fill: #e8f4fd; }
+                        .backend-fill { fill: #fff4e6; }
+                        .ml-fill { fill: #f0f9ff; }
+                        .component-box { fill: #ffffff; stroke: #34495e; stroke-width: 1.5; }
+                        .arrow { stroke: #3498db; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+                        .text-title { font-family: 'Segoe UI', sans-serif; font-size: 16px; font-weight: bold; fill: #2c3e50; }
+                        .text-component { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #34495e; }
+                        .text-tech { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #7f8c8d; font-style: italic; }
+                        .text-flow { font-family: 'Segoe UI', sans-serif; font-size: 10px; fill: #3498db; font-weight: bold; }
+                    </style>
+                    
+                    <!-- Arrow marker -->
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
+                    </marker>
+                </defs>
+                
+                <!-- Frontend Layer -->
+                <rect x="50" y="50" width="200" height="120" class="layer-box frontend-fill" rx="5"/>
+                <text x="150" y="30" class="text-title" text-anchor="middle">Frontend Layer</text>
+                
+                <rect x="70" y="80" width="160" height="35" class="component-box" rx="3"/>
+                <text x="150" y="95" class="text-component" text-anchor="middle">User Interface</text>
+                <text x="150" y="108" class="text-tech" text-anchor="middle">HTML, CSS, JavaScript</text>
+                
+                <rect x="70" y="125" width="160" height="35" class="component-box" rx="3"/>
+                <text x="150" y="140" class="text-component" text-anchor="middle">Login & Data Input</text>
+                <text x="150" y="153" class="text-tech" text-anchor="middle">Form Validation</text>
+                
+                <!-- Backend Layer -->
+                <rect x="300" y="50" width="200" height="120" class="layer-box backend-fill" rx="5"/>
+                <text x="400" y="30" class="text-title" text-anchor="middle">Backend Layer</text>
+                
+                <rect x="320" y="80" width="160" height="35" class="component-box" rx="3"/>
+                <text x="400" y="95" class="text-component" text-anchor="middle">Node.js API Server</text>
+                <text x="400" y="108" class="text-tech" text-anchor="middle">Express, TypeScript</text>
+                
+                <rect x="320" y="125" width="160" height="35" class="component-box" rx="3"/>
+                <text x="400" y="140" class="text-component" text-anchor="middle">Authentication & Validation</text>
+                <text x="400" y="153" class="text-tech" text-anchor="middle">JWT Tokens</text>
+                
+                <!-- Machine Learning Layer -->
+                <rect x="550" y="50" width="200" height="120" class="layer-box ml-fill" rx="5"/>
+                <text x="650" y="30" class="text-title" text-anchor="middle">Machine Learning Layer</text>
+                
+                <rect x="570" y="80" width="160" height="35" class="component-box" rx="3"/>
+                <text x="650" y="95" class="text-component" text-anchor="middle">Python ML Service</text>
+                <text x="650" y="108" class="text-tech" text-anchor="middle">FastAPI</text>
+                
+                <rect x="570" y="125" width="160" height="35" class="component-box" rx="3"/>
+                <text x="650" y="140" class="text-component" text-anchor="middle">Random Forest Model</text>
+                <text x="650" y="153" class="text-tech" text-anchor="middle">.joblib file</text>
+                
+                <!-- Data Flow Arrows -->
+                <!-- Frontend to Backend -->
+                <path d="M 250 110 L 300 110" class="arrow"/>
+                <text x="275" y="100" class="text-flow" text-anchor="middle">Request</text>
+                
+                <!-- Backend to ML -->
+                <path d="M 500 110 L 550 110" class="arrow"/>
+                <text x="525" y="100" class="text-flow" text-anchor="middle">Predict</text>
+                
+                <!-- ML to Backend (return) -->
+                <path d="M 550 140 L 500 140" class="arrow"/>
+                <text x="525" y="155" class="text-flow" text-anchor="middle">Results</text>
+                
+                <!-- Backend to Frontend (return) -->
+                <path d="M 300 140 L 250 140" class="arrow"/>
+                <text x="275" y="155" class="text-flow" text-anchor="middle">Response</text>
+                
+                <!-- Additional Components -->
+                <!-- Database representation -->
+                <rect x="320" y="200" width="160" height="40" class="component-box" rx="3"/>
+                <text x="400" y="215" class="text-component" text-anchor="middle">Database</text>
+                <text x="400" y="228" class="text-tech" text-anchor="middle">User Data</text>
+                
+                <!-- Connection from Backend to Database -->
+                <path d="M 400 170 L 400 200" class="arrow" stroke-dasharray="5,5"/>
+                
+                <!-- ML Processing Details -->
+                <rect x="570" y="200" width="160" height="60" class="component-box" rx="3"/>
+                <text x="650" y="215" class="text-component" text-anchor="middle">Preprocessing</text>
+                <text x="650" y="228" class="text-tech" text-anchor="middle">Feature Engineering</text>
+                <text x="650" y="241" class="text-component" text-anchor="middle">SHAP Explainability</text>
+                <text x="650" y="254" class="text-tech" text-anchor="middle">Probability Scores</text>
+                
+                <!-- Connection from ML Service to Processing -->
+                <path d="M 650 170 L 650 200" class="arrow" stroke-dasharray="5,5"/>
+                
+                <!-- Title -->
+                <text x="400" y="300" class="text-title" text-anchor="middle" font-size="18">Data Flow Architecture</text>
+                
+                <!-- Flow indicators -->
+                <text x="150" y="320" class="text-component" text-anchor="middle">1. User Input</text>
+                <text x="400" y="320" class="text-component" text-anchor="middle">2. API Processing</text>
+                <text x="650" y="320" class="text-component" text-anchor="middle">3. ML Prediction</text>
+                
+                <text x="275" y="340" class="text-component" text-anchor="middle">4. Authentication</text>
+                <text x="525" y="340" class="text-component" text-anchor="middle">5. Model Inference</text>
+                <text x="400" y="360" class="text-component" text-anchor="middle">6. Response with Results</text>
+            </svg>
+        </div>
+        
+        <div class="legend">
+            <h3>Architecture Components</h3>
+            <div class="legend-item"><strong>Frontend Layer:</strong> Handles user interaction and data collection through web forms</div>
+            <div class="legend-item"><strong>Backend Layer:</strong> Manages authentication, data validation, and API routing</div>
+            <div class="legend-item"><strong>Machine Learning Layer:</strong> Performs model inference and generates predictions with explainability</div>
+            <div class="legend-item"><strong>Data Flow:</strong> Solid arrows show request/response flow, dashed arrows show internal connections</div>
+        </div>
+    </div>
+</body>
+</html>

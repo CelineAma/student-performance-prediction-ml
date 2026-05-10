@@ -1,0 +1,32 @@
+{
+  "model_type": "RandomForestClassifier",
+  "total_samples": 200,
+  "at_risk_students": 177,
+  "risk_percentage": 88.5,
+  "accuracy": 0.43,
+  "total_features": 1060,
+  "waterfall_explanation": {
+    "instance_index": 0,
+    "predicted_label": 0,
+    "top_positive_factors": {
+      "cumulative_cgpa": 0.097783177456008,
+      "carryover_courses_count": 0.07819115978315049,
+      "failed_courses_prev_semester": 0.06436055972232642,
+      "continuous_assessment_avg": 0.01443951615099445,
+      "core_courses_failed_total": 0.00835752987761077,
+      "faculty_Engineering": 0.004706944848376649,
+      "utme_score": 0.00395481189666265,
+      "institution_type_Private": 0.0024919629881606847
+    },
+    "top_negative_factors": {
+      "socioeconomic_band_High": -0.08299764411583346,
+      "state_of_origin_Kano": -0.029763633277241512,
+      "faculty_Social Sciences": -0.01911221031385461,
+      "library_visits_per_month": -0.014743213704073166,
+      "prev_semester_gpa": -0.01354960796017526,
+      "counselling_visits_semester": -0.012169004482266065,
+      "level": -0.010451879047425524,
+      "lms_logins_per_week": -0.009956702012234265
+    }
+  }
+}
