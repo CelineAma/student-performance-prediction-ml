@@ -9,6 +9,11 @@ export const config = {
   adminUsername: process.env.ADMIN_USERNAME || 'admin',
   adminPasswordHash: process.env.ADMIN_PASSWORD_HASH,
 };
+console.log('\n=== CONFIG OBJECT ===');
+console.log('config.adminUsername:', config.adminUsername);
+console.log('config.adminPasswordHash exists:', !!config.adminPasswordHash);
+console.log('config.adminPasswordHash prefix:', config.adminPasswordHash?.substring(0, 15));
+
 
 if (!config.jwtSecret) {
   throw new Error('JWT_SECRET environment variable is required');
